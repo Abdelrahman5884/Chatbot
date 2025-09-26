@@ -12,7 +12,6 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-
 Route::get('/users',[UserController::class,'index']);
 Route::get('/users/{id}',[UserController::class,'show']);
 Route::post('/users',[UserController::class,'store']);
@@ -22,9 +21,7 @@ Route::delete('/users/{id}',[UserController::class,'destroy']);
 
 Route::middleware('auth:sanctum')->group(function(){
 Route::get('/chat',[AichatController::class,'index']);
-Route::post('/chat',[AichatController::class,'chatbot']);
 Route::get('/chat/{id}',[AichatController::class,'show']);
-Route::put('/chat/{id}',[AichatController::class,'update']);
 Route::delete('/chat/{id}',[AichatController::class,'destroy']);
 });
 

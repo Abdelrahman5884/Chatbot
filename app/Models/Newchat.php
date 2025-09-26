@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Newchat extends Model
 {
-    protected $fillable=['name','user_id','chat_id'];
 
     public function user()
     {

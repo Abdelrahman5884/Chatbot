@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Services\Aichat;
 use App\Models\Chat;
 
-
 class AichatController extends Controller
 {
     protected Aichat $ai;
@@ -17,7 +16,7 @@ class AichatController extends Controller
         $this->ai = $ai;
     }
 
-    public function chatbot(Request $request)
+    public function chatbot(Request $request ,$id)
     {
         $data = $request->validate([
             'message' => 'required|string|max:4000'
@@ -30,6 +29,8 @@ class AichatController extends Controller
             'user_id' => auth()->id(),
             'prompt' => $data['message'],
             'response' => $reply,
+            'newchat_id' => $id,
+
         ]);
 
         return response()->json(['reply' => $reply]);
@@ -46,9 +47,8 @@ class AichatController extends Controller
     public function show($id)
     {
         $chat = Chat::find($id);
-//        if(auth()->id()== $chat->user_id){
             return response()->json(['status' => true, 'data' => $chat]);
-//        }
+
     }
     public function destroy($id)
     {
