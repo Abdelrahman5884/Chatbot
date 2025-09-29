@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\Aichat;
 use App\Models\Chat;
 
+
 class AichatController extends Controller
 {
     protected Aichat $ai;
