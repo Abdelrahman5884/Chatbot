@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AichatController;
+use App\Http\Controllers\Api\NewChatController;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -21,11 +22,18 @@ Route::delete('/users/{id}',[UserController::class,'destroy']);
 
 Route::middleware('auth:sanctum')->group(function(){
 Route::get('/chat',[AichatController::class,'index']);
+Route::post('/newchats/{id}/chat', [AichatController::class, 'chatbot']);
 Route::get('/chat/{id}',[AichatController::class,'show']);
 Route::delete('/chat/{id}',[AichatController::class,'destroy']);
 });
 
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/newchats', [NewChatController::class, 'index']);
+    Route::post('/newchats', [NewChatController::class, 'store']);
+    Route::get('/newchats/{id}', [NewChatController::class, 'show']);
+    Route::delete('/newchats/{id}', [NewChatController::class, 'destroy']);
 
+});
 
 Route::post('/login', function (Request $request) {
     $request->validate([
