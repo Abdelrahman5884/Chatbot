@@ -13,18 +13,23 @@ return new class extends Migration
     {
         Schema::create('newchats', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('title')->default('New Chat');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('chat_id')->constrained('chats')->onDelete('cascade');
             $table->timestamps();
+        });
+
+        Schema::table('chats', function (Blueprint $table) {
+            $table->foreignId('newchat_id')->constrained('newchats')->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
+        Schema::table('chats', function (Blueprint $table) {
+            $table->dropForeign(['newchat_id']);
+            $table->dropColumn('newchat_id');
+        });
+
         Schema::dropIfExists('newchats');
     }
 };
