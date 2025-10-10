@@ -9,6 +9,7 @@ use App\Models\Chat;
 
 class AichatController extends Controller
 {
+    
     protected Aichat $ai;
 
     public function __construct(Aichat $ai)
